@@ -1,24 +1,30 @@
 #################################################################################################################
 #################################################################################################################
+##
 ## Script for dendrochronologic analysis with measuRing
+##
 ## Initial version: Wilson Lara Henao
+##
+#################################################################################################################
+#################################################################################################################
+##
 ## Modifications: José Riofrío, Ana Martín Ariza, Cristóbal Ordóñez
-#################################################################################################################
-#################################################################################################################
+##
 #################################################################################################################
 #################################################################################################################
 #################################################################################################################
 
+
                                         # Install libraries. In linux do as root in commandline
 ## chooseCRANmirror(FALSE)
-## install.packages('dplyr')
+## install.packages('tidyr')
 ## install.packages('XML')
 ## install.packages('dplR')
-## detach("package:measuRing", unload = TRUE, character.only = TRUE)
 ## install.packages('tiff')
 ## install.packages('measuRing')
-## install.packages('DendroSync')
-## install.packages('C:/Users/acristo/Downloads/measuRing_0.3.tar.gz', repos = NULL, type="source")
+## install.packages('DendroSync'
+## install.packages("tidyverse")
+## install.packages("signal")
 
                                         # Load librery and RData
 library("measuRing")
@@ -26,6 +32,8 @@ library("dplR")
 library("tidyr")
 ## library("dplyr")
 library('DendroSync')
+## library("tidyverse")
+library("signal")
 
 
                                         # R console wide lenght
@@ -36,8 +44,10 @@ options(width=200)
 
                                         # sample folder
 dir()
+setwd('~/github/DendroUsefulInformation')
 setwd('~/Documents/dendro')
 dir()
+setwd('~/github/DendroUsefulInformation/smart-images')
 setwd('~/Documents/dendro/smart-images')
 dir()
 dir(pattern='RData')
@@ -284,7 +294,7 @@ j <- 8
 (muestra  <- names(all.rings[i]) )
 (img <- v.nam[j])
 
-a <- crossRings(all.rings,8,fun ='ccf',seg.length = 16,bin.floor = 0,lag.max = 3,make.plot = T,pcrit =0.1)
+a <- crossRings(all.rings,1,fun ='ccf',seg.length = 16,bin.floor = 0,lag.max = 3,make.plot = T,pcrit =0.1)
 
 a <- crossRings(all.rings,j,fun ='ccf',seg.length = 6,bin.floor = 0,lag.max = 3,make.plot = T,pcrit =0.1)
 
