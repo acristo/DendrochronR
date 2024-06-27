@@ -22,7 +22,7 @@
 ## install.packages('dplR')
 ## install.packages('tiff')
 ## install.packages('measuRing')
-## install.packages('DendroSync'
+## install.packages('DendroSync')
 ## install.packages("tidyverse")
 ## install.packages("signal")
 
@@ -32,7 +32,7 @@ library("dplR")
 library("tidyr")
 ## library("dplyr")
 library('DendroSync')
-## library("tidyverse")
+library("tidyverse")
 library("signal")
 
 
@@ -44,10 +44,10 @@ options(width=200)
 
                                         # sample folder
 dir()
-setwd('~/github/DendroUsefulInformation')
+setwd('~/github/DendrochronR')
 setwd('~/Documents/dendro')
 dir()
-setwd('~/github/DendroUsefulInformation/smart-images')
+setwd('~/github/DendrochronR/smart-images')
 setwd('~/Documents/dendro/smart-images')
 dir()
 dir(pattern='RData')
@@ -273,11 +273,14 @@ Cross_corr[["spearman.rho"]][order((Cross_corr[["spearman.rho"]][,11])),]
 
 
                                         # xDat same dominant step by step
-cols <- c(1: 2)
+cols <- c(1: 9)
+
 n.all0.ring <- all.rings[cols]
 selected.rings <- all.rings[match(n.all0.ring, names(all.rings))]
 
 crossRings(selected.rings, smp = 1, ncol = 1:length(selected.rings), fun = "spag")
+
+corr.rwl.seg(rings, seg.length=10, pcrit=0.09)
 
 Cross_corr <- crossRings(selected.rings,fun ='corr',seg.length = 6,bin.floor = 0,lag.max = 2,make.plot = T,pcrit =0.1)
 Cross_corr[["spearman.rho"]][order((Cross_corr[["spearman.rho"]][,11])),]
