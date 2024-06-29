@@ -1,18 +1,19 @@
-#################################################################################################################
-#################################################################################################################
+####################################################################################################################################
+####################################################################################################################################
 ##
 ## Script for dendrochronologic analysis with measuRing
 ##
 ## Initial version: Wilson Lara Henao
 ##
-#################################################################################################################
-#################################################################################################################
+####################################################################################################################################
+####################################################################################################################################
 ##
 ## Modifications: José Riofrío, Ana Martín Ariza, Cristóbal Ordóñez
 ##
-#################################################################################################################
-#################################################################################################################
-#################################################################################################################
+####################################################################################################################################
+####################################################################################################################################
+####################################################################################################################################
+
 
 
                                         # Install libraries. In linux do as root in commandline
@@ -26,7 +27,16 @@
 ## install.packages("tidyverse")
 ## install.packages("signal")
 
-                                        # Load librery and RData
+
+###################################################################################################################################
+#############################################                                                    ##################################
+#############################################       initial part                                 ##################################
+#############################################       common for the whole parts of this script    ##################################
+#############################################                                                    ##################################
+###################################################################################################################################
+
+
+                                        # Load libraries
 library("measuRing")
 library("dplR")
 library("tidyr")
@@ -53,53 +63,50 @@ setwd('~/Documents/dendro/Matalindo/PurePine2')
 dir()
 dir(pattern='RData')
 
-####################################################################
 rm(list=ls()) # vaciamos el entorno de trabajo---- BE CAREFULL #####
-####################################################################
 
+
+
+                                        # load work environment data
                                         # carga del entorno de trabajo
 load(file='allRings.RData')
-## load(file='robles.RData')
-## ls()
-## all.rings <- roble.d.ring.3
-## (n.all.ring <- names(all.rings))
-## names(all.rings[1]) <- "Oa508E.tif"
-## write(n.all.ring, file='names_r.csv')
-## n.all.ring2 <- read.csv(file='names2.csv', stringsAsFactors=FALSE)
-## dir()
-## n.dom.ring <- readLines('names_dom.csv')
-## n.nodom.ring <- readLines('names_nodom.csv')
-## str(n.all.ring)
-## names(all.rings) <- n.all.ring2
-
-
 
                                         # list of samples and parameters for autodetect function
-# election of image file to analyze
-## series.name <- ''
-## (v.nam <- dir()[ grep( series.name, dir( pattern='*.tif') ) ] )
+                                        # election of image file to analyze
+                                        # store names of images includer in work folder in vector v.nam
 (v.nam <- dir( pattern='*.tif') )
-## write(v.nam, file='names_f.csv')
-# variables para la función multidetect
-LastYear  = 2023 # año del último anillo; se puede poner en una lista si no son el mismo para todos
-Segs      = 1 # número de segmentos
-Origin    = 0.01 # sensibilidad en la detección de la MG
-AutoDet   = TRUE # se puede poner en una lista
-Darker    = F  # true for finding negative extremes (quercus for example)
-ColMarker = 'red'
-Plot      = TRUE # mostrar gráfico para incluir o eliminar anillos
-## first.year <- 1960
-## file.name  <- paste(series.name,".csv", sep = "")
-## ls()
 
 
+                                        # variables for multidetect function
+LastYear  = 2023  # year of the last complete ring (can be a list) // año del último anillo (puede ser una lista si no varios)
+Segs      = 1     # number of parts to divide the image  //  número de segmentos en los que dividimos la imagen para analizarla
+Origin    = 0.01  # image sensitivity //  sensibilidad en la detección de la MG
+AutoDet   = TRUE  # automatic detection of rings  // detección automática de anillos, se puede poner en una lista
+Darker    = F     # true for finding negative extremes (quercus for example)
+ColMarker = 'red' #
+Plot      = TRUE  # show plot to mark or delete rings // mostrar gráfico para incluir o eliminar anillos
+ls()
+
+
+
+####################################################################################################################################
+## these webs are a good option to investigate about crossdating with dplR package
+## dplR is part of openDendro https://opendendro.org.
+## New users can visit https://opendendro.github.io/dplR-workshop/ to get started.
+####################################################################################################################################
+
+
+
+
+####################################################################################################################################
+################################################                                    ################################################
+################################################   Ring counting and marking part   ################################################
+################################################                                    ################################################
+####################################################################################################################################
 
             ## Deteccion multiple # 3 escenarios posibles #
      ## utilizamos una lista aparte en la que podemos analizar 1 o mas archivos
      ## se puede utilizar para:
-
-
-
 
 
 #############################################
@@ -201,6 +208,7 @@ d.ring <- multiDetect(img,                   # lista de imagenes a analizar
 
 
 
+
 #############################################
 ## START OF STORE PART
 #############################################
@@ -235,16 +243,11 @@ names(all.rings)
 
 
 
-
-###############################
-###############################
-##
-## Analysing crossdating samples
-##
-###############################
-###############################
-
-
+####################################################################################################################################
+################################################                                    ################################################
+################################################    Analysing crossdating samples   ################################################
+################################################                                    ################################################
+####################################################################################################################################
 
 str(all.rings)
 rings <- reduceList(all.rings,name.ls= "ringWidths",T)
@@ -307,20 +310,11 @@ for (i in 1:length(names(all.rings))) {
 
 
 
-
-
-
-
-
-
-
-###############################
-###############################
-##
-## Save and export analysis
-##
-###############################
-###############################
+####################################################################################################################################
+################################################                                    ################################################
+################################################      Save and export analysis      ################################################
+################################################                                    ################################################
+####################################################################################################################################
 
 
 
